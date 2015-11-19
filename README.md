@@ -21,9 +21,9 @@ You only need to initialize CrashHandler instance in your Application class. Als
    }
 ```
 
-All options in [CrashHandler.Builder](https://github.com/zplesac/android-crash-handler/blob/master/crashhandler/src/main/java/com/zplesac/crashhandler/CrashHandler.java) are optional. Use only those you really want to customize.
+All options in [CrashHandlerConfiguration.Builder](https://github.com/zplesac/android-crash-handler/blob/master/crashhandler/src/main/java/com/zplesac/crashhandler/CrashHandlerConfiguration.java) are optional. Use only those you really want to customize.
 
-See all default values for config options [here](https://github.com/zplesac/android-crash-handler/blob/master/crashhandler/src/main/java/com/zplesac/crashhandler/CrashHandler.java).
+See all default values for config options [here](https://github.com/zplesac/android-crash-handler/blob/master/crashhandler/src/main/java/com/zplesac/crashhandler/CrashHandlerConfiguration.java).
 
 ## What is actually initialized with this library???
 
