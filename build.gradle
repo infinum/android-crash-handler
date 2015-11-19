@@ -1,0 +1,33 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        classpath 'io.fabric.tools:gradle:1.+'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    // this makes sure the java subprojects get compiled with Java 7
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.7"
+        targetCompatibility = "1.7"
+    }
+
+    repositories {
+        jcenter()
+        maven { url "https://raw.github.com/Raizlabs/maven-releases/master/releases" }
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
