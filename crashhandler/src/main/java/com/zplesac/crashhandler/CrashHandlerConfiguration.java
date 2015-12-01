@@ -10,6 +10,8 @@ import android.app.Application;
  */
 public class CrashHandlerConfiguration {
 
+    private static final int DEFAULT_CRASH_THRESHOLD = 1000;
+
     private long crashThreshold;
 
     private Class<?> homeActivity;
@@ -58,7 +60,7 @@ public class CrashHandlerConfiguration {
         /**
          * Threshold value which is used in AppCrashHandler for detecting crash loops. Default value is 1000.
          */
-        private long defaultCrashThreshold = 1000;
+        private long defaultCrashThreshold = DEFAULT_CRASH_THRESHOLD;
 
         /**
          * Home activity of your application.
@@ -94,7 +96,7 @@ public class CrashHandlerConfiguration {
             return this;
         }
 
-        public Builder setUserRemoteDebuggingTree(boolean shouldUse){
+        public Builder setUserRemoteDebuggingTree(boolean shouldUse) {
             this.useRemoteDebuggingTree = shouldUse;
             return this;
         }
