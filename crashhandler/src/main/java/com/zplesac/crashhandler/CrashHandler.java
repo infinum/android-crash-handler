@@ -4,6 +4,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.squareup.leakcanary.LeakCanary;
 import com.zplesac.crashhandler.handlers.AppCrashHandler;
+import com.zplesac.crashhandler.models.LogLevel;
 
 import android.util.Log;
 
@@ -63,13 +64,11 @@ public class CrashHandler {
 
         switch (configuration.getLogLevel()) {
             case DEBUG:
-                Timber.plant(new Timber.DebugTree());
                 LeakCanary.install(configuration.getContext());
                 crashlyticsCore = new CrashlyticsCore.Builder().disabled(true).build();
                 break;
             case FULL:
                 crashlyticsCore = new CrashlyticsCore.Builder().disabled(false).build();
-                Timber.plant(new CrashReportingTree());
                 break;
             default:
                 LeakCanary.install(configuration.getContext());
@@ -77,7 +76,21 @@ public class CrashHandler {
                 break;
         }
 
+        initTimber();
+
         Fabric.with(configuration.getContext(), new Crashlytics.Builder().core(crashlyticsCore).build());
+    }
+
+    private void initTimber(){
+        if(configuration.isUseRemoteDebuggingTree()){
+            Timber.plant(new RemoteDebuggingTree());
+        }
+        else if(configuration.getLogLevel() == LogLevel.DEBUG){
+            Timber.plant(new Timber.DebugTree());
+        }
+        else{
+            Timber.plant(new CrashReportingTree());
+        }
     }
 
     /**
@@ -93,6 +106,22 @@ public class CrashHandler {
 
             // will write to the crash report but NOT to logcat
             Crashlytics.log(message);
+
+            if (t != null) {
+                Crashlytics.logException(t);
+            }
+        }
+    }
+
+    /**
+     * Logs everything to crashlytics, then we just need to log an exception and we should see all prior logs online!
+     */
+    private static class RemoteDebuggingTree extends Timber.Tree {
+
+        @Override
+        protected void log(int priority, String tag, String message, Throwable t) {
+            // will write to the crash report as well to logcat
+            Crashlytics.log(priority, tag, message);
 
             if (t != null) {
                 Crashlytics.logException(t);
