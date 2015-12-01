@@ -2,6 +2,7 @@ package com.zplesac.crashhandler;
 
 import com.zplesac.crashhandler.models.LogLevel;
 
+import android.app.Activity;
 import android.app.Application;
 
 /**
@@ -59,7 +60,7 @@ public class CrashHandlerConfiguration {
             return this;
         }
 
-        public Builder setHomeActivity(Class<?> activity) {
+        public Builder setHomeActivity(Class<? extends Activity> activity) {
             this.homeActivity = activity;
             return this;
         }

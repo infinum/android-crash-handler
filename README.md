@@ -1,10 +1,10 @@
 # Android Crash Handler
 
-Provides a simple way for handling configuring your app crash handler.
+Provides a simple way for configuring your app crash handler.
 
 ## Usage
 
-You only need to initialize CrashHandler instance in your Application class. Also, you'll also need to provide a global configuration by defining CrashHandlerConfiguration object.
+You only need to initialize the CrashHandler instance in your Application class. Also, you'll need to provide a global configuration by defining CrashHandlerConfiguration object.
 
 ```java
     
