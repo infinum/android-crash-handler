@@ -81,14 +81,12 @@ public class CrashHandler {
         Fabric.with(configuration.getContext(), new Crashlytics.Builder().core(crashlyticsCore).build());
     }
 
-    private void initTimber(){
-        if(configuration.isUseRemoteDebuggingTree()){
+    private void initTimber() {
+        if (configuration.isUseRemoteDebuggingTree()) {
             Timber.plant(new RemoteDebuggingTree());
-        }
-        else if(configuration.getLogLevel() == LogLevel.DEBUG){
+        } else if (configuration.getLogLevel() == LogLevel.DEBUG) {
             Timber.plant(new Timber.DebugTree());
-        }
-        else{
+        } else {
             Timber.plant(new CrashReportingTree());
         }
     }
