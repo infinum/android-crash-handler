@@ -18,11 +18,18 @@ public class CrashHandlerConfiguration {
 
     private LogLevel logLevel;
 
+    private boolean useRemoteDebuggingTree;
+
     private CrashHandlerConfiguration(Builder builder) {
         this.crashThreshold = builder.defaultCrashThreshold;
         this.context = builder.application;
         this.homeActivity = builder.homeActivity;
         this.logLevel = builder.logLevel;
+        this.useRemoteDebuggingTree = builder.useRemoteDebuggingTree;
+    }
+
+    public boolean isUseRemoteDebuggingTree() {
+        return useRemoteDebuggingTree;
     }
 
     public long getCrashThreshold() {
@@ -43,13 +50,30 @@ public class CrashHandlerConfiguration {
 
     public static class Builder {
 
+        /**
+         * Application context.
+         */
         private Application application;
 
-        private long defaultCrashThreshold;
+        /**
+         * Threshold value which is used in AppCrashHandler for detecting crash loops. Default value is 1000.
+         */
+        private long defaultCrashThreshold = 1000;
 
+        /**
+         * Home activity of your application.
+         */
         private Class<?> homeActivity;
 
+        /**
+         * Log level for CrashHandler instance. Default value is DEBUG.
+         */
         private LogLevel logLevel = LogLevel.DEBUG;
+
+        /**
+         * Should use remote debugging tree, which sends all logs to Crashlytics when an crash happens. Default value is false.
+         */
+        private boolean useRemoteDebuggingTree = false;
 
         public Builder(Application application) {
             this.application = application;
@@ -67,6 +91,11 @@ public class CrashHandlerConfiguration {
 
         public Builder setLogLevel(LogLevel logLevel) {
             this.logLevel = logLevel;
+            return this;
+        }
+
+        public Builder setUserRemoteDebuggingTree(boolean shouldUse){
+            this.useRemoteDebuggingTree = shouldUse;
             return this;
         }
 
