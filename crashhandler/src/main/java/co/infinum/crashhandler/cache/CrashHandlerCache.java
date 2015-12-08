@@ -1,6 +1,6 @@
-package com.zplesac.crashhandler.cache;
+package co.infinum.crashhandler.cache;
 
-import com.zplesac.crashhandler.CrashHandler;
+import co.infinum.crashhandler.CrashHandler;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

@@ -1,4 +1,4 @@
-package com.zplesac.sampleapp;
+package co.infinum.crashhandler.sampleapp;
 
 import com.crashlytics.android.Crashlytics;
 

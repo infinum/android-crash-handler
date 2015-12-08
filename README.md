@@ -35,3 +35,11 @@ It does multiple things:
 * connect your Timber exceptions to Crashlytics with CrashReportingTree
 * initialize default unexpected crash handler
 
+## Proguard configuration
+
+Add following code snippet to your proguard configuration:
+
+```groovy
+    -keep class org.eclipse.mat.** { *; }
+    -keep class com.squareup.leakcanary.** { *; }
+```
