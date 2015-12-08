@@ -1,10 +1,9 @@
-package com.zplesac.crashhandler;
+package co.infinum.crashhandler;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.squareup.leakcanary.LeakCanary;
-import com.zplesac.crashhandler.handlers.AppCrashHandler;
-import com.zplesac.crashhandler.models.LogLevel;
+import co.infinum.crashhandler.handlers.AppCrashHandler;
 
 import android.util.Log;
 
@@ -57,37 +56,34 @@ public class CrashHandler {
     }
 
     private void initDependencies() {
-        // Set custom uncaught exception handler
-        Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler(configuration.getContext()));
 
-        CrashlyticsCore crashlyticsCore = null;
-
-        switch (configuration.getLogLevel()) {
-            case DEBUG:
-                LeakCanary.install(configuration.getContext());
-                crashlyticsCore = new CrashlyticsCore.Builder().disabled(true).build();
-                break;
-            case FULL:
-                crashlyticsCore = new CrashlyticsCore.Builder().disabled(false).build();
-                break;
-            default:
-                LeakCanary.install(configuration.getContext());
-                crashlyticsCore = new CrashlyticsCore.Builder().disabled(true).build();
-                break;
+        // Check if we should enable AppCrashHandler
+        if (configuration.isAppCrashHandlerEnabled()) {
+            Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler(configuration.getContext()));
         }
 
-        initTimber();
-
+        // Check if we should enable Crashlytics
+        CrashlyticsCore crashlyticsCore = new CrashlyticsCore.Builder().disabled(configuration.isCrashlyticsEnabled()).build();
         Fabric.with(configuration.getContext(), new Crashlytics.Builder().core(crashlyticsCore).build());
-    }
 
-    private void initTimber() {
-        if (configuration.isUseRemoteDebuggingTree()) {
-            Timber.plant(new RemoteDebuggingTree());
-        } else if (configuration.getLogLevel() == LogLevel.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new CrashReportingTree());
+        // Check if we should enable LeakCanary
+        if (configuration.isLeakCanaryEnabled()) {
+            LeakCanary.install(configuration.getContext());
+        }
+
+        // Plant correct Timber tree
+        switch (configuration.getTimberTreeType()) {
+            case DEBUG:
+                Timber.plant(new Timber.DebugTree());
+                break;
+            case CRASH_REPORTING:
+                Timber.plant(new CrashReportingTree());
+                break;
+            case REMOTE_DEBUGGING:
+                Timber.plant(new RemoteDebuggingTree());
+                break;
+            default:
+                Timber.plant(new Timber.DebugTree());
         }
     }
 

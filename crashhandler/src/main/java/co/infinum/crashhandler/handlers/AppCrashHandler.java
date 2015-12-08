@@ -1,7 +1,7 @@
-package com.zplesac.crashhandler.handlers;
+package co.infinum.crashhandler.handlers;
 
-import com.zplesac.crashhandler.CrashHandler;
-import com.zplesac.crashhandler.cache.CrashHandlerCache;
+import co.infinum.crashhandler.CrashHandler;
+import co.infinum.crashhandler.cache.CrashHandlerCache;
 
 import android.app.Activity;
 import android.app.Application;
@@ -58,7 +58,12 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
 
     }
 
-    // Define custom uncaught exception handling in order to avoid system "App has crashed" dialog.
+    /**
+     * Define custom uncaught exception handling in order to avoid system "App has crashed" dialog.
+     *
+     * @param thread Thread that is about to exit.
+     * @param ex     Uncaught exception.
+     */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         long time = System.currentTimeMillis() % MILLISECONDS_DIVIDER;
@@ -68,7 +73,11 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
             Intent intent = new Intent(CrashHandler.getInstance().getConfiguration().getContext(),
                     CrashHandler.getInstance().getConfiguration().getHomeActivity());
 
-
+            /**
+             * Determine if we are in crash loop. If the time between 2 crashes is lower than crash threshold, this means
+             * that we are in crash loop - application is crashing as soon as it's started. If this is the case,
+             * start the Home activity with IS_REPEATED_CRASH set to true, so that we know that we need to handle this case.
+             */
             if (time - CrashHandlerCache.getLastCrashDate() > CrashHandler.getInstance().getConfiguration().getCrashThreshold()) {
                 intent.putExtra(CrashHandler.IS_REPEATED_CRASH, false);
 
