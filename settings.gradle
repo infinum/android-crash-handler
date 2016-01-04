@@ -1,1 +1,1 @@
-include ':crashhandler', ':sampleapp'
+include ':crashhandler', ':sampleapp', ':crashhandlerlint'
