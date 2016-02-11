@@ -4,7 +4,7 @@ Provides a simple way for configuring your app crash handler.
 
 ## Usage
 
-1. Initialize the CrashHandler instance in your Application class, and provide a global configuration by defining CrashHandlerConfiguration object.
+Initialize the CrashHandler instance in your Application class, and provide a global configuration by defining CrashHandlerConfiguration object.
 
 ```java
     
