@@ -4,7 +4,7 @@ Provides a simple way for configuring your app crash handler.
 
 ## Usage
 
-You only need to initialize the CrashHandler instance in your Application class. Also, you'll need to provide a global configuration by defining CrashHandlerConfiguration object.
+1. Initialize the CrashHandler instance in your Application class, and provide a global configuration by defining CrashHandlerConfiguration object.
 
 ```java
     
@@ -33,7 +33,12 @@ It does multiple things:
 * setup Timber with default Debug tree
 * initialize Crashlytics
 * connect your Timber exceptions to Crashlytics with CrashReportingTree
-* initialize default unexpected crash handler
+* setup uncaught exception handler
+
+## Crashlytics configuration
+
+In order to use Crashlytics, you have to generate *fabric.properties* file in your module, and provide your *apiKey* and *apiSecret*. Remember to 
+exclude this file from your repository.
 
 ## Proguard configuration
 

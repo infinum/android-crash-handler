@@ -9,10 +9,6 @@
             android:name=".SampleApp"
             android:theme="@style/AppTheme">
 
-        <meta-data
-                android:name="io.fabric.ApiKey"
-                android:value="INSERT YOUR KEY HERE"/>
-
 
         <activity android:name=".MainActivity">
             <intent-filter>
