@@ -48,10 +48,10 @@ afterEvaluate {
 def initFabricPropertiesIfNeeded() {
     def propertiesFile = file('fabric.properties')
     if (!propertiesFile.exists()) {
-        if(System.env.crashlyticsApiSecret == null){
+        if(crashlyticsApiSecret == null){
             throw new GradleException('Required ORG_GRADLE_PROJECT_crashlyticsApiSecret environment variable not set.')
         }
-        else if(System.env.crashlyticsApiKey == null){
+        else if(crashlyticsApiKey == null){
             throw new GradleException('Required ORG_GRADLE_PROJECT_crashlyticsApiKey environment variable not set.')
         }
         else{
