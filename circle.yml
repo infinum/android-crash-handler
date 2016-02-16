@@ -31,4 +31,3 @@ test:
   post:
     # copy the build outputs to artifacts
     - cp -r sampleapp/build/outputs $CIRCLE_ARTIFACTS
-    - cp -r sampleapp/build/reports $CIRCLE_ARTIFACTS
