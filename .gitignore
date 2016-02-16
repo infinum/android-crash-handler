@@ -116,3 +116,4 @@ app/seeds.txt
 app/unused.txt% 
 
 sampleapp/fabric.properties
+gradle.properties
