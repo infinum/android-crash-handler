@@ -25,9 +25,7 @@ test:
   override:
     # build the project and run static analysis while we wait for the emulator to boot (lint, pmd, findbugs, checkstyle)
    - ./gradlew assembleDebug -PdisablePreDex
-   - ./gradlew lint -PdisablePreDex
-   - ./gradlew checkstyle -PdisablePreDex
-   - ./gradlew findbugs -PdisablePreDex
+   - ./gradlew lint checkstyle findbugs pmd -PdisablePreDex
     # run static analysis
     # run robolectric tests
   post:
